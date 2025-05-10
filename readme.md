@@ -75,9 +75,31 @@ O Sistema de Reservas de Salas é uma aplicação web desenvolvida para facilita
 3. Faça login ou registre-se para começar a usar o sistema.
 
 ## Estrutura do Projeto
-
-[Deixado em branco conforme sua solicitação. Você pode adicionar sua própria estrutura de pastas aqui.]
-
+```bash
+📁 .vscode                  # Configurações específicas do VS Code (como launch.json, settings.json)
+📁 assets                  # Recursos estáticos como imagens e ícones
+    📁 assetsWAD           # Subpasta específica de recursos (possivelmente relacionados a "Web App Design")
+📁 config                  # Arquivos de configuração da aplicação (ex: conexões com o banco)
+📁 controllers             # Lógica de controle entre rotas e modelos (MVC)
+📁 documents               # Documentos auxiliares do projeto
+📁 models                  # Modelos de dados (MVC) e definição de esquemas
+📁 node_modules            # Módulos e dependências instaladas via npm
+📁 routes                  # Definições das rotas da aplicação
+📁 scripts                 # Scripts utilitários e auxiliares
+📁 services                # Lógica de serviços como autenticação, integração com APIs, etc.
+📁 site-projeto-individual # Diretório contendo arquivos do projeto principal ou módulos específicos
+📁 styles                  # Arquivos de estilo CSS
+📁 tests                   # Testes automatizados do projeto
+📄 .env                    # Variáveis de ambiente (configurações sensíveis)
+📄 .env.example            # Exemplo do arquivo .env para configuração
+📄 .gitignore              # Arquivos e pastas ignorados pelo Git
+📄 jest.config.js          # Configuração do framework de testes Jest
+📄 package-lock.json       # Registro de versões exatas das dependências instaladas
+📄 package.json            # Arquivo principal de configuração do projeto Node.js
+📄 readme.md               # Documentação geral do projeto
+📄 rest.http               # Arquivo de testes de requisições REST (usado com VS Code REST Client)
+📄 server.js               # Arquivo principal do servidor backend
+```
 ## Contribuição
 
 1. Faça um fork do repositório.  

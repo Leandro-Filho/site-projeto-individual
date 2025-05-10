@@ -93,7 +93,239 @@ Primeiro será explicado cada entidade e depois a relação entre elas para fica
 <br> <sub>Fonte: Autoral (2025)</sub> </p>
 &emsp;&emsp; Aqui explicarei as relações entre todas as entidades presentes no diagrama. 
 
-##### Relacionamento 
+### Relação entre "usuario" e "reserva" (via relacionamento N:N "FAZEM")
+&emsp;&emsp;Descrição da Relação: A relação "FAZEM" entre "usuario" e "sala" é de natureza muitos-para-muitos (N:N), pois um usuário pode fazer várias reservas e uma sala pode estar associada a várias reservas feitas por diferentes usuários. Essa relação é materializada pela entidade "reserva", que serve como uma tabela intermediária para armazenar o histórico de reservas solicitadas por cada usuário.
+
+&emsp;&emsp;Lógica: Cada registro em "reserva" está vinculado a um "id_usuario" (chave estrangeira) e a um "id_salas" (outra chave estrangeira), indicando quem solicitou a reserva e qual sala foi reservada. O histórico é mantido por meio dos atributos "título", "data", "horário_início" e "horário_final", permitindo rastrear todas as solicitações de reservas de um usuário ao longo do tempo. Isso é útil para auditoria, planejamento ou reaproveitamento de informações em futuras reservas.
+
+### Relação entre "usuario" e "notificações" (via relacionamento 1:N "RECEBE")
+&emsp;&emsp;Descrição da Relação: A relação "RECEBE" é de um-para-muitos (1:N), onde um único "usuario" (identificado por "id") pode receber múltiplas "notificações" (identificadas por "id"). Isso é indicado pela chave estrangeira "id_usuario" na entidade "notificações".
+
+&emsp;&emsp;Lógica: As notificações são geradas para informar o usuário sobre eventos relacionados ao sistema, como confirmação de reservas, lembretes de horários, cancelamentos ou atualizações de salas. Por exemplo, quando um usuário solicita uma reserva, o sistema pode enviar uma notificação com o título e a mensagem detalhando a aprovação ou rejeição. O atributo "created_at" em "notificações" ajuda a manter um registro temporal dessas comunicações, permitindo que o usuário acompanhe todas as mensagens recebidas.
+
+### Relação entre "sala" e "reserva" (via relacionamento 1:N "CONTÉM")
+&emsp;&emsp;Descrição da Relação: A relação "CONTÉM" é de um-para-muitos (1:N), onde uma "sala" (identificada por "id") pode estar associada a várias "reservas" (identificadas por "id"), enquanto cada reserva está vinculada a apenas uma sala (via "id_salas" como chave estrangeira).
+
+&emsp;&emsp;Lógica: Essa relação reflete o uso de uma sala específica para múltiplas reservas ao longo do tempo. Por exemplo, uma sala pode ser reservada para uma reunião hoje e para um treinamento amanhã. Os atributos "data", "horário_início" e "horário_final" em "reserva" garantem que não haja sobreposições de horários, permitindo um gerenciamento eficiente do uso das salas. Isso também facilita relatórios sobre a ocupação de cada sala.
+
+### Relação auto-referencial em "usuario-notificações" (via relacionamento "GUARDA")
+&emsp;&emsp;Descrição da Relação: A relação "GUARDA" parece ser uma auto-relação dentro do contexto de "usuario" e "notificações", sugerindo que um usuário pode estar associado a notificações de forma hierárquica ou de armazenamento. No entanto, como o diagrama mostra "usuario-notificações" como uma entidade intermediária com "id_usuario" e "id_notificações", pode indicar que as notificações são "guardadas" ou gerenciadas por um usuário específico, possivelmente um administrador.
+
+&emsp;&emsp;Lógica: Essa relação pode ser usada para permitir que um usuário (como um gestor) gerencie ou arquive notificações enviadas a outros usuários. Por exemplo, um administrador pode receber e armazenar notificações sobre todas as reservas realizadas no sistema para fins de supervisão, com os atributos "título" e "mensagem" fornecendo detalhes sobre cada notificação arquivada, e "created_at" registrando quando foi gerada
+
+
+## Modelo Físico da MER.
+
+&emsp;&emsp;&emsp;&emsp; Aqui será explicado o código colocado no arquivo .sql para criar as tabelas no banco de dados.
+
+<p align="center">Código da Lógica de Criar ID Aleatórios. </p>
+<p align="center"> <img src="../assets/assetsWAD/código_ID.png">
+<br> <sub>Fonte: Autoral (2025)</sub> </p>
+
+### Explicação:
+
+CREATE EXTENSION: Instala a extensão "uuid-ossp" no PostgreSQL, que adiciona funções para gerar UUIDs (identificadores únicos).
+
+IF NOT EXISTS: Evita erros ao executar o comando caso a extensão já esteja instalada.
+"uuid-ossp": Nome da extensão que fornece funções como uuid_generate_v4() para criar UUIDs aleatórios.
+
+Propósito:
+Ativa a extensão "uuid-ossp" para gerar UUIDs, úteis como chaves primárias (ex.: "id" em "usuario", "sala", "reserva"), garantindo unicidade global.
+
+<p align="center">Código Automatizador. </p>
+<p align="center"> <img src="../assets/assetsWAD/código_otimizacao.png">
+<br> <sub>Fonte: Autoral (2025)</sub> </p>
+
+### Explicação:
+
+CREATE INDEX: Cria índices em colunas específicas para acelerar buscas, junções e ordenações. Cada índice é nomeado (ex.: idx_usuario_salas_usuario_id) e associado a uma coluna (ex.: id_usuario) em uma tabela (ex.: usuario_salas).
+
+Exemplo Representativo: O índice idx_reservas_usuario_id ON reservas(id_usuario) acelera consultas que filtram reservas por usuário, como buscar todas as reservas feitas por um "id_usuario" específico. Esse padrão se aplica aos demais índices, que otimizam buscas por "id_usuario" ou "id_salas" em "usuario_salas", "reservas" e "usuario_notificacao", ou por "id_notificacao" em "usuario_notificacao".
+
+Propósito:
+Os índices melhoram a eficiência de consultas no sistema de reservas de salas, acelerando buscas e filtros por "id_usuario", "id_salas" e "id_notificacao" nas tabelas "usuario_salas", "reservas" e "usuario_notificacao", especialmente em cenários de alto volume de dados.
+
+<p align="center">Código da Criação da Tabela Usuários. </p>
+<p align="center"> <img src="../assets/assetsWAD/código_tabela_usuario.png">
+<br> <sub>Fonte: Autoral (2025)</sub> </p>
+
+
+Descrição:
+Armazena as informações dos usuários cadastrados no sistema, como dados de login, contato e afiliação institucional.
+
+Campos:
+
+id: Identificador único do usuário (UUID gerado automaticamente).
+
+email: Endereço de e-mail do usuário. É obrigatório e único, servindo como login principal.
+
+senha: Senha de acesso ao sistema. Campo obrigatório.
+
+empresa_escola: Nome da empresa ou escola vinculada ao usuário (opcional).
+
+numero_celular: Número de telefone celular do usuário (opcional).
+
+created_at: Data e hora de criação do registro, gerada automaticamente.
+
+update_at: Data e hora da última atualização do registro.
+
+Regras e Integridade:
+
+O campo email possui a restrição UNIQUE para impedir duplicidade de contas.
+
+Timestamps automáticos garantem o rastreamento de criação e atualização dos dados.
+
+<p align="center">Código da Criação da Tabela Usuários-Salas. </p>
+<p align="center"> <img src="../assets/assetsWAD/código_tabela_usuario-salas.png">
+<br> <sub>Fonte: Autoral (2025)</sub> </p>
+
+
+Descrição:
+Tabela de junção que representa a relação N:N entre usuários e salas, ou seja, quais usuários estão associados a quais salas.
+
+Campos:
+
+id: Identificador único da associação (UUID gerado automaticamente).
+
+id_usuario: Referência ao id do usuário. A exclusão em cascata remove o relacionamento caso o usuário seja deletado.
+
+id_salas: Referência ao id da sala. Também utiliza exclusão em cascata para manter a integridade.
+
+UNIQUE(id_usuario, id_salas): Garante que a mesma combinação usuário-sala não seja registrada mais de uma vez, evitando duplicações.
+
+Regras e Integridade:
+
+Esta tabela funciona como uma ponte entre usuario e salas, viabilizando o relacionamento muitos-para-muitos.
+
+As cláusulas ON DELETE CASCADE mantêm o banco de dados limpo ao excluir automaticamente vínculos inválidos.
+
+
+<p align="center">Código da Criação da Tabela Usuários-Notificações. </p>
+<p align="center"> <img src="../assets/assetsWAD/código_tabela_usuario-notificacao.png">
+<br> <sub>Fonte: Autoral (2025)</sub> </p>
+
+
+Descrição:
+Registra a relação N:N entre usuários e notificações, representando quais notificações foram enviadas para quais usuários (relação RECEBE).
+
+Campos:
+
+id: Identificador único (UUID gerado automaticamente).
+
+id_usuario: Referência ao usuário que recebeu a notificação. Caso o usuário seja deletado, a notificação associada também será removida (ON DELETE CASCADE).
+
+id_notificacao: Referência à notificação recebida. Também possui ON DELETE CASCADE para remoção automática.
+
+recebido_em: Data e hora em que a notificação foi registrada como recebida (timestamp automático).
+
+lido: Indica se a notificação foi lida (FALSE por padrão).
+
+Regras e Integridade:
+
+UNIQUE(id_usuario, id_notificacao): Garante que cada usuário receba uma notificação apenas uma vez, evitando duplicidade.
+
+As chaves estrangeiras e exclusões em cascata ajudam a manter o banco limpo e consistente, mesmo com remoções de usuários ou notificações.
+
+
+<p align="center">Código da Criação da Tabela Notificação. </p>
+<p align="center"> <img src="../assets/assetsWAD/código_tabela_notificacao.png">
+<br> <sub>Fonte: Autoral (2025)</sub> </p>
+
+
+Descrição:
+Armazena as notificações geradas pelo sistema para envio aos usuários.
+
+Campos:
+
+id: Identificador único da notificação (UUID gerado automaticamente).
+
+titulo: Título da notificação, obrigatório.
+
+mensagem: Conteúdo da notificação, obrigatório.
+
+created_at: Data e hora de criação da notificação (definido automaticamente).
+
+update_at: Data e hora da última atualização (também automática).
+
+Utilização:
+
+Esta tabela centraliza as mensagens que serão posteriormente associadas aos usuários por meio da tabela de junção usuario_notificacao.
+
+Pode ser usada para exibir alertas, lembretes ou confirmações personalizadas no sistema.
+
+<p align="center">Código da Criação da Tabela Salas. </p>
+<p align="center"> <img src="../assets/assetsWAD/código_tabela_salas.png">
+<br> <sub>Fonte: Autoral (2025)</sub> </p>
+
+
+Descrição:
+Armazena os dados das salas disponíveis para reserva no sistema.
+
+Campos:
+
+id: Identificador único da sala (UUID gerado automaticamente).
+
+local: Localização da sala, obrigatório.
+
+descricao: Informações adicionais sobre a sala (ex: tipo, recursos, etc.).
+
+capacidade: Quantidade máxima de pessoas permitidas na sala (obrigatório e deve ser maior que zero).
+
+create_at: Data e hora de criação do registro.
+
+update_at: Data e hora da última atualização.
+
+Utilização:
+
+Utilizada como base para o processo de reserva.
+
+Vinculada a usuários e reservas por meio das tabelas usuario_salas e reservas.
+
+Garante controle de capacidade mínima com a restrição CHECK(capacidade > 0).
+
+<p align="center">Código da Criação da Tabela Reservas. </p>
+<p align="center"> <img src="../assets/assetsWAD/código_tabela_reservas.png">
+<br> <sub>Fonte: Autoral (2025)</sub> </p>
+
+
+Descrição:
+Registra as reservas feitas por usuários para salas específicas no sistema.
+
+Campos:
+
+id: Identificador único da reserva (UUID gerado automaticamente).
+
+id_usuario: Referência ao usuário que fez a reserva (chave estrangeira com exclusão em cascata).
+
+id_salas: Referência à sala reservada (chave estrangeira com restrição de exclusão).
+
+titulo: Breve descrição ou nome da reserva.
+
+data: Data da reserva (obrigatória).
+
+horario_inicio: Horário de início da reserva (obrigatório).
+
+horario_final: Horário de término da reserva (obrigatório).
+
+create_at: Data e hora de criação do registro.
+
+update_at: Data e hora da última atualização.
+
+Regras e Restrições:
+
+CHECK (horario_final > horario_inicio): Garante que o horário final seja posterior ao horário inicial.
+
+ON DELETE CASCADE para id_usuario: se o usuário for deletado, suas reservas também são.
+
+ON DELETE RESTRICT para id_salas: impede deletar uma sala com reservas vinculadas.
+
+Utilização:
+
+Serve como o principal controle de agendamento do sistema.
+
+Garante integridade temporal e referencial entre usuários e salas.
+
+---
 
 ### 3.1.1 BD e Models (Semana 5)
 *Descreva aqui os Models implementados no sistema web*
