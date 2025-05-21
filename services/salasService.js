@@ -1,4 +1,4 @@
-const Sala = require('../models/Sala');
+const Sala = require('../models/salas');
 
 // Serviço para criar uma sala
 const createSala = async (data) => {
