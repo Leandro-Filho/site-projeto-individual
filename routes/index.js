@@ -1,9 +1,16 @@
+// routes/index.js
+
 const express = require('express');
 const router = express.Router();
-const home = require('../controllers/homeController');
 
+// Rota principal (GET /)
+router.get('/', (req, res) => {
+  res.send('API está funcionando!');
+});
 
-// Rota principal
-router.get('/', home.index);
+// Você pode adicionar outras rotas aqui, ex:
+// router.get('/trilhas', ...)
+// router.post('/usuarios', ...)
 
 module.exports = router;
+

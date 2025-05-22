@@ -6,7 +6,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
     "consultar": "npx supabase --version",
-    "init-db": "node scripts\runSQLScript.js"
+    "init-db": "node scripts/runSQLScript.js"
   },
   "keywords": [],
   "author": "",
@@ -14,7 +14,9 @@
   "description": "O Sistema de Reservas de Salas é uma aplicação web desenvolvida para facilitar a reserva e o gerenciamento de salas. Ele permite que usuários autenticados reservem salas para datas e horários específicos, visualizem o histórico de reservas e recebam notificações. Administradores podem gerenciar salas e usuários, garantindo um controle eficiente do sistema.",
   "dependencies": {
     "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
     "express": "^5.1.0",
+    "pg": "^8.16.0",
     "supabase": "^2.23.4"
   },
   "devDependencies": {

@@ -1,32 +1,22 @@
+// app.js
 const express = require('express');
 const cors = require('cors');
+const routes = require('./routes'); // Importa as rotas do diretório 'routes'
+
 const app = express();
 
-// Middleware para aceitar JSON
+// Middlewares
+app.use(cors());
 app.use(express.json());
 
-// Middleware para permitir requisições de outras origens (CORS)
-app.use(cors());
-
-// Importação das rotas
-const userRoutes = require('./routes/userRoutes');
-const notificacaoRoutes = require('./routes/notificacaoRoutes');
-const salaRoutes = require('./routes/salaRoutes');
-const reservaRoutes = require('./routes/reservaRoutes');
-
-// Uso das rotas com prefixos
-app.use('/usuarios', userRoutes);
-app.use('/notificacoes', notificacaoRoutes);
-app.use('/salas', salaRoutes);
-app.use('/reservas', reservaRoutes);
-
-// Rota base só para teste rápido
+// Rota base para teste
 app.get('/', (req, res) => {
   res.send('API está rodando com sucesso!');
 });
 
-// Definição da porta
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Servidor rodando na porta ${PORT}`);
-});
+// Usa as rotas definidas em 'routes/index.js'
+app.use('/', routes);
+
+module.exports = app;
+
+
