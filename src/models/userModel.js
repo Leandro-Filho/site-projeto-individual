@@ -2,7 +2,7 @@ const Joi = require("joi");
 
 module.exports = Joi.object({
   id: Joi.number().integer().positive(),
-  name: Joi.string().min(2).required(),
+  nome: Joi.string().min(2).required(),
   email: Joi.string().email().required(),
   senha: Joi.string()
     .min(6)
