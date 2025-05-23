@@ -1,9 +1,9 @@
---ativar extensão para gerar UUIDs
+-- Ativar extensão para gerar UUIDs
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
---tabela: usuario
---armazena informações dos usuários do sistema
-CREATE TABLE usuario (
+-- Tabela: users
+-- Armazena informações dos usuários do sistema
+CREATE TABLE "users" (
     id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
     email TEXT NOT NULL UNIQUE,
     senha TEXT NOT NULL,
@@ -13,9 +13,9 @@ CREATE TABLE usuario (
     update_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
---tabela: salas
---armazena detalhes das salas disponíveis para reserva
-CREATE TABLE salas (
+-- Tabela: salas
+-- Armazena detalhes das salas disponíveis para reserva
+CREATE TABLE "salas" (
     id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
     local TEXT NOT NULL,
     descricao TEXT,
@@ -24,21 +24,21 @@ CREATE TABLE salas (
     update_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
---tabela: usuario_salas
---tabela de junção para relação N:N entre usuario e salas
-CREATE TABLE usuario_salas (
+-- Tabela: user_salas
+-- Tabela de junção para relação N:N entre users e salas
+CREATE TABLE "user_salas" (
     id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
-    id_usuario UUID NOT NULL REFERENCES usuario(id) ON DELETE CASCADE,
-    id_salas UUID NOT NULL REFERENCES salas(id) ON DELETE CASCADE,
-    UNIQUE(id_usuario, id_salas) --essa parte garante que a combinação usuario-sala seja única
+    id_user UUID NOT NULL REFERENCES "users"(id) ON DELETE CASCADE,
+    id_salas UUID NOT NULL REFERENCES "salas"(id) ON DELETE CASCADE,
+    UNIQUE(id_user, id_salas) -- Garante que a combinação user-sala seja única
 );
 
---tabela: reservas
---registra as reservas feitas por usuários para salas específicas
-CREATE TABLE reservas (
+-- Tabela: reservas
+-- Registra as reservas feitas por usuários para salas específicas
+CREATE TABLE "reservas" (
     id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
-    id_usuario UUID NOT NULL REFERENCES usuario(id) ON DELETE CASCADE,
-    id_salas UUID NOT NULL REFERENCES salas(id) ON DELETE RESTRICT,
+    id_user UUID NOT NULL REFERENCES "users"(id) ON DELETE CASCADE,
+    id_salas UUID NOT NULL REFERENCES "salas"(id) ON DELETE RESTRICT,
     titulo TEXT NOT NULL,
     data DATE NOT NULL,
     horario_inicio TIME NOT NULL,
@@ -48,9 +48,9 @@ CREATE TABLE reservas (
     CONSTRAINT valid_horarios CHECK (horario_final > horario_inicio)
 );
 
---tabela: notificacoes
---armazena notificações enviadas pelo sistema
-CREATE TABLE notificacoes (
+-- Tabela: notificacoes
+-- Armazena notificações enviadas pelo sistema
+CREATE TABLE "notificacoes" (
     id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
     titulo TEXT NOT NULL,
     mensagem TEXT NOT NULL,
@@ -58,21 +58,21 @@ CREATE TABLE notificacoes (
     update_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
---tabela: usuario_notificacao
---registra a relação entre usuários e notificações (relação RECEBE)
-CREATE TABLE usuario_notificacao (
+-- Tabela: user_notificacao
+-- Registra a relação entre usuários e notificações (relação RECEBE)
+CREATE TABLE "user_notificacao" (
     id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
-    id_usuario UUID NOT NULL REFERENCES usuario(id) ON DELETE CASCADE,
-    id_notificacao UUID NOT NULL REFERENCES notificacoes(id) ON DELETE CASCADE,
+    id_user UUID NOT NULL REFERENCES "users"(id) ON DELETE CASCADE,
+    id_notificacao UUID NOT NULL REFERENCES "notificacoes"(id) ON DELETE CASCADE,
     recebido_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     lido BOOLEAN DEFAULT FALSE,
-    UNIQUE(id_usuario, id_notificacao) --igual a tabela usuarios-salas, essa parte garante que a combinação usuario-notificação seja única
+    UNIQUE(id_user, id_notificacao) -- Garante que a combinação user-notificação seja única
 );
 
---índices para otimizar consultas
-CREATE INDEX idx_usuario_salas_usuario_id ON usuario_salas(id_usuario);
-CREATE INDEX idx_usuario_salas_salas_id ON usuario_salas(id_salas);
-CREATE INDEX idx_reservas_usuario_id ON reservas(id_usuario);
-CREATE INDEX idx_reservas_salas_id ON reservas(id_salas);
-CREATE INDEX idx_usuario_notificacao_usuario_id ON usuario_notificacao(id_usuario);
-CREATE INDEX idx_usuario_notificacao_notificacao_id ON usuario_notificacao(id_notificacao);
+-- Índices para otimizar consultas
+CREATE INDEX idx_user_salas_user_id ON "user_salas"(id_user);
+CREATE INDEX idx_user_salas_salas_id ON "user_salas"(id_salas);
+CREATE INDEX idx_reservas_user_id ON "reservas"(id_user);
+CREATE INDEX idx_reservas_salas_id ON "reservas"(id_salas);
+CREATE INDEX idx_user_notificacao_user_id ON "user_notificacao"(id_user);
+CREATE INDEX idx_user_notificacao_notificacao_id ON "user_notificacao"(id_notificacao);

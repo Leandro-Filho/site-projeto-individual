@@ -1,22 +1,19 @@
-// app.js
+
 const express = require('express');
 const cors = require('cors');
-const routes = require('./routes'); // Importa as rotas do diretório 'routes'
+const path = require('path');
+const usuarioRoutes = require('./src/routes/usuarioRoutes');
 
 const app = express();
 
-// Middlewares
 app.use(cors());
 app.use(express.json());
+app.use(express.static(path.join(__dirname, 'public')));
 
-// Rota base para teste
+app.use('/api/usuarios', usuarioRoutes);
+
 app.get('/', (req, res) => {
-  res.send('API está rodando com sucesso!');
+  res.sendFile(path.join(__dirname, 'views', 'index.html'));
 });
 
-// Usa as rotas definidas em 'routes/index.js'
-app.use('/', routes);
-
 module.exports = app;
-
-
