@@ -79,20 +79,20 @@ module.exports = {
   },
 
   async updateSenha(id, novaSenha) {
-    const query = `UPDATE users SET senha=$1 WHERE id=$2 RETURNING *;`;
+    const query = `UPDATE "user" SET senha=$1 WHERE id=$2 RETURNING *;`;
     const res = await pool.query(query, [novaSenha, id]);
     return res.rows[0];
   },
 
   async delete(id) {
-    const query = `DELETE FROM users WHERE id=$1;`;
+    const query = `DELETE FROM "user" WHERE id=$1;`;
     await pool.query(query, [id]);
   },
 
   // Método para buscar perfil completo (com reservas e notificações)
   async getPerfil(id) {
     // Aqui fazemos 3 consultas e juntamos resultados
-    const userQuery = 'SELECT id, nome, email, empresa_escola, celular FROM users WHERE id=$1';
+    const userQuery = 'SELECT id, nome, email, empresa_escola, celular FROM "user" WHERE id=$1';
     const reservasQuery = 'SELECT * FROM reservas WHERE id_user=$1';
     const notificacoesQuery = `
       SELECT n.*
