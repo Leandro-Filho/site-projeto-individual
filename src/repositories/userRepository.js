@@ -116,7 +116,7 @@ async updateSenha(id, novaSenha) {
       const notificacoesQuery = `
         SELECT n.*
         FROM notificacoes n
-        JOIN usuario_notificacao un ON n.id = un.id_notificacao
+        JOIN user_notificacao un ON n.id = un.id_notificacao
         WHERE un.id_user = $1
       `;
   
