@@ -51,10 +51,10 @@ module.exports = {
   },
 
   // Filtro personalizado para reservas por sala e horário
-  async getByRoomAndTimeRange(id_sala, horario_inicio, horario_final) {
+  async findConflictingReservas(id_sala, horario_inicio, horario_final) {
     if (!id_sala || !horario_inicio || !horario_final) {
       throw new Error('id_sala, horario_inicio e horario_final são obrigatórios para filtro.');
     }
-    return await reservaRepository.findByRoomAndTimeRange(id_sala, horario_inicio, horario_final);
+    return await reservaRepository.ffindConflictingReservas(id_sala, horario_inicio, horario_final);
   }
 };

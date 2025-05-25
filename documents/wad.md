@@ -328,18 +328,51 @@ Garante integridade temporal e referencial entre usuários e salas.
 ---
 
 ### 3.1.1 BD e Models (Semana 5)
-*Descreva aqui os Models implementados no sistema web*
+Por questões de organização e estudos para entender melhor cada código e suas funções, decidi separar o model e deixa-lo mais simples, criando o Repository com as consultas do banco de dados e o Model apenas fazendo a descrição de cada entidade, definindo os valores de cada atributo, seus tipos e algumas validações, usando a biblioteca Joi para isso.
+
+<p align="center">Código da userModel. </p>
+<p align="center"> <img src="../assets/assetsWAD/userModel_WAD.png">
+<br> <sub>Fonte: Autoral (2025)</sub> </p>
+
+O model usuário é responsável por validar os dados dos usuários cadastrados no sistema. Ele garante que o nome tenha no mínimo 2 caracteres, que o email seja válido, e que a senha possua pelo menos uma letra e um número, com no mínimo 6 caracteres. O campo empresa_escola é obrigatório e deve ser uma string. Já o campo celular deve conter exatamente 11 dígitos numéricos, sendo validado tanto por tamanho quanto por padrão. O campo id é opcional e gerado automaticamente pelo banco de dados.
+
+<p align="center">Código da reservasModel. </p>
+<p align="center"> <img src="../assets/assetsWAD/reservasModel_WAD.png">
+<br> <sub>Fonte: Autoral (2025)</sub> </p>
+
+O model reserva é responsável por validar os dados relacionados às reservas feitas pelos usuários no sistema. Ele garante que id_user e id_sala sejam números inteiros e positivos, além de obrigatórios. Os campos horario_inicio e horario_final devem seguir o formato HH:mm, assegurando um horário válido. O campo status aceita apenas quatro valores específicos: pendente, confirmada, cancelada ou rejeitada. Por fim, o campo titulo é obrigatório e deve ser uma string.
+
+<p align="center">Código da notificacaoModel. </p>
+<p align="center"> <img src="../assets/assetsWAD/notificacaoModel_WAD.png">
+<br> <sub>Fonte: Autoral (2025)</sub> </p>
+
+O model notificação define e valida a estrutura dos dados de uma notificação no sistema, assegurando que todas as notificações criadas tenham um título e uma mensagem, ambos obrigatoriamente do tipo texto. O campo id é opcional e deve ser um número inteiro positivo, geralmente gerado automaticamente pelo banco de dados. 
+
+<p align="center">Código da salaModel. </p>
+<p align="center"> <img src="../assets/assetsWAD/salaModel_WAD.png">
+<br> <sub>Fonte: Autoral (2025)</sub> </p>
+
+O model sala tem a função de validar os dados relacionados às salas disponíveis no sistema. Ele garante que o campo local seja uma string contendo apenas letras, enquanto o campo capacidade deve ser um número inteiro e positivo. O campo id é opcional e geralmente é gerado automaticamente pelo banco de dados. Esse model também utiliza mensagens de erro personalizadas, facilitando o entendimento dos erros pelo usuário quando os dados não seguem o formato esperado.
+
+<p align="center">Código da usernotificacaoModel. </p>
+<p align="center"> <img src="../assets/assetsWAD/usernotificacaoModel_WAD.png">
+<br> <sub>Fonte: Autoral (2025)</sub> </p>
+
+O model user_notificacao valida os dados da associação entre usuários e notificações. Ele exige que os campos id_user e id_notificacao sejam números inteiros, positivos e obrigatórios. O campo visualizado é um valor booleano que indica se a notificação foi vista, assumindo false como valor padrão.
+
+<p align="center">Código da usersalaModel. </p>
+<p align="center"> <img src="../assets/assetsWAD/usersalaModel_WAD.png">
+<br> <sub>Fonte: Autoral (2025)</sub> </p>
+
+O model user_sala é responsável por validar os dados da relação entre usuários e salas no sistema, garantindo que apenas informações corretas sejam processadas. Criado com a biblioteca Joi, ele assegura que os campos id_user e id_sala sejam obrigatoriamente números inteiros e positivos, representando os IDs de um usuário e de uma sala válidos. O campo id é opcional, já que geralmente é gerado automaticamente pelo banco de dados.
 
 ### 3.2. Arquitetura (Semana 5)
 
-*Posicione aqui o diagrama de arquitetura da sua solução de aplicação web. Atualize sempre que necessário.*
+O diagrama da arquitetura MVC é uma representação visual da estrutura de uma aplicação que segue o padrão Model-View-Controller. Esse diagrama ilustra como as três camadas principais (Model, View e Controller) se relacionam entre si, facilitando o entendimento do fluxo de dados e das responsabilidades de cada parte do sistema.
 
-**Instruções para criação do diagrama de arquitetura**  
-- **Model**: A camada que lida com a lógica de negócios e interage com o banco de dados.
-- **View**: A camada responsável pela interface de usuário.
-- **Controller**: A camada que recebe as requisições, processa as ações e atualiza o modelo e a visualização.
-  
-*Adicione as setas e explicações sobre como os dados fluem entre o Model, Controller e View.*
+<p align="center">Diagrama da Arquitetura MVC. </p>
+<p align="center"> <img src="../assets/assetsWAD/arquiteturaMVC.png">
+<br> <sub>Fonte: Autoral (2025)</sub> </p>
 
 ### 3.3. Wireframes (Semana 03 - opcional)
 
@@ -356,7 +389,9 @@ Garante integridade temporal e referencial entre usuários e salas.
 
 ### 3.6. WebAPI e endpoints (Semana 05)
 
-*Utilize um link para outra página de documentação contendo a descrição completa de cada endpoint. Ou descreva aqui cada endpoint criado para seu sistema.*  
+Essa seção tem como função ter uma documentação que tenha todas as rotas possíveis do nosso site. 
+Segue o link abaixo para ter acesso a documentação das Rotas API do site.
+https://docs.google.com/document/d/1qXP6Ura9gz3WSuewzRaSLd4iKVlDks3lSRcuIeQElCI/edit?usp=sharing
 
 ### 3.7 Interface e Navegação (Semana 07)
 
