@@ -27,8 +27,9 @@ app.use('/api/usernotificacao', usernotificacaoRoutes);
 app.use('/api/usersalas', usersalasRoutes);
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'index.html'));
+  res.sendFile(path.join(__dirname, 'public', 'views', 'user.html')); // ou index.html
 });
+
 
 module.exports = app;
 

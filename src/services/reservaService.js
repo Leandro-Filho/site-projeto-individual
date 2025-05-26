@@ -1,4 +1,4 @@
-const reservaRepository = require('../repositories/reservaRepository');
+const reservaRepository = require('../repositories/reservasRepository');
 
 module.exports = {
   async create(reservaData) {
