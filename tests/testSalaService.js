@@ -1,4 +1,4 @@
-const salaService = require('./src/services/salaService');
+const salaService = require('../src/services/salaService');
 
 async function testSalaService() {
   try {

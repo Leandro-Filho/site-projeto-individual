@@ -1,4 +1,4 @@
-const userService = require('./src/services/userService'); // ajuste o caminho conforme sua estrutura
+const userService = require('../src/services/userService'); // ajuste o caminho conforme sua estrutura
 
 async function testarService() {
   try {

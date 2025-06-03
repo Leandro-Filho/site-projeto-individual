@@ -1,4 +1,4 @@
-const salaRepository = require('./src/repositories/salaRepository');
+const salaRepository = require('../src/repositories/salaRepository');
 
 async function testSalaRepository() {
   try {
@@ -44,7 +44,7 @@ async function testSalaRepository() {
     console.error('Erro durante o teste:', err.message);
   } finally {
     // Finalizar o pool de conexões para sair do processo
-    const pool = require('./src/config/db');
+    const pool = require('../src/config/db');
     await pool.end();
   }
 }

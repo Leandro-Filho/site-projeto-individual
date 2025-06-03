@@ -1,7 +1,7 @@
 // testUserRepository.js
 
 require('dotenv').config();
-const userRepository = require('./src/repositories/userRepository');
+const userRepository = require('../src/repositories/userRepository');
 
 // Função de teste principal
 async function test() {

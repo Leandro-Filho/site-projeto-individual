@@ -1,4 +1,4 @@
-const reservaRepository = require('./src/repositories/reservasRepository');
+const reservaRepository = require('../src/repositories/reservasRepository');
 
 (async () => {
   try {

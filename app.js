@@ -2,13 +2,15 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
+const app = express();
+
 const usuarioRoutes = require('./src/routes/userRoutes');
 const salaRoutes = require('./src/routes/salaRoutes');
 const reservaRoutes = require('./src/routes/reservasRoutes');
 const notificacaoRoutes = require('./src/routes/notificacaoRoutes');
 const usernotificacaoRoutes = require('./src/routes/userNotificacaoRoutes');
 const usersalasRoutes = require('./src/routes/userSalasRoutes');
-const app = express();
+
 
 app.use(cors());
 app.use(express.json());
