@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Criar Usuário</title>
+</head>
+<body>
+  <h1>Criar Usuário</h1>
+
+  <% if (typeof sucesso !== 'undefined' && sucesso) { %>
+  <p style="color: green;">Usuário criado com sucesso!</p>
+<% } %>
+
+<% if (typeof erro !== 'undefined' && erro) { %>
+  <p style="color: red;"><%= erro %></p>
+<% } %>
+
+  <form action="/create" method="POST">
+  <label for="email">Email:</label>
+  <input type="email" name="email" required>
+
+  <label for="senha">Senha:</label>
+  <input type="password" name="senha" required>
+
+  <label for="empresa">Empresa:</label>
+  <input type="text" name="empresa">
+
+  <label for="celular">Celular:</label>
+  <input type="text" name="celular">
+
+  <button type="submit">Criar</button>
+</form>
+
+  </form>
+</body>
+</html>

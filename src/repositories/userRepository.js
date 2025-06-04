@@ -10,25 +10,15 @@ function validate(data){
 
 module.exports={
 
-async create(user) {
-  user = validate(user);
+async create(userData) {
+  const { email, senha, empresa, celular } = userData;
 
-  const query = `
-    INSERT INTO "user" (nome, email, senha, empresa_escola, celular)
-    VALUES ($1, $2, $3, $4, $5)
-    RETURNING *;
-  `;
+  const result = await db.query(
+    'INSERT INTO usuarios (email, senha, empresa, celular) VALUES ($1, $2, $3, $4) RETURNING *',
+    [email, senha, empresa, celular]
+  );
 
-  const values = [
-    user.nome,
-    user.email,
-    user.senha,
-    user.empresa_escola,
-    user.celular
-  ];
-
-  const res = await pool.query(query, values);
-  return res.rows[0]; // ← ESSENCIAL: retorna o usuário criado
+  return result.rows[0];
 },
 
 
@@ -61,24 +51,6 @@ async getAll(){
     const res = await pool.query(baseQuery, values);
     return res.rows;
   },
-
-  async update(id, user) {
-      // Atualiza dados básicos, exceto senha (tem método separado)
-      const query = `
-        UPDATE "user" SET nome=$1, email=$2, empresa_escola=$3, celular=$4
-        WHERE id=$5 RETURNING *;
-      `;
-      const values = [
-        user.nome,
-        user.email,
-        user.empresa_escola,
-        user.celular,
-        id,
-      ];
-  
-      const res = await pool.query(query, values);
-      return res.rows[0];
-    },
 
     async update(id, user) {
     // Atualiza dados básicos, exceto senha (tem método separado)

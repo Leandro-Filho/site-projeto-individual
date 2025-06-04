@@ -6,13 +6,16 @@ module.exports = {
 
   // Criar um usuário novo
   async createUser(req, res) {
+   console.log('POST /create chegou:', req.body);
+
     try {
-      const userData = req.body; // dados do corpo da requisição (JSON)
-      const newUser = await userService.create(userData);
-      res.status(201).json(newUser); // 201 Created + retorna o novo usuário criado
+      await userService.createUser(req.body);
+      res.redirect('/create?success=1');
     } catch (error) {
-      console.error('Erro ao criar usuário:', error);
-      res.status(400).json({ error: error.message }); // bad request (validação ou outros erros)
+      res.status(400).render('user/create', {
+        sucesso: false,
+        erro: error.message
+      });
     }
   },
 
@@ -102,6 +105,16 @@ module.exports = {
       console.error('Erro ao buscar perfil:', error);
       res.status(500).json({ error: 'Erro interno do servidor' });
     }
-  }
+  },
+
+  // Exibir formulário de criação de usuário (EJS)
+ async showCreateForm(req, res) {
+  const sucesso = req.query.success === '1';
+  res.render('user/create', {
+    sucesso,
+    erro: null // ← isso evita o erro no EJS!
+  });
+}
+
 
 };
