@@ -6,7 +6,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
     "consultar": "npx supabase --version",
-    "init-db": "node scripts/runSQLScript.js",
+    "init-db": "node scripts/init.sql",
     "migrate": "node scripts/migrate.js"
   },
   "keywords": [],
@@ -20,7 +20,8 @@
     "express": "^5.1.0",
     "joi": "^17.13.3",
     "pg": "^8.16.0",
-    "supabase": "^2.23.4"
+    "supabase": "^2.23.4",
+    "uuid": "^11.1.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.10"

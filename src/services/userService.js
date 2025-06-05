@@ -1,5 +1,5 @@
 const userRepository = require('../repositories/userRepository');
-const schema = require('../models/userModel');
+const schema = require('../models/usuarioModel');
 
 async function createUser(userData) {
   // validação com Joi ou outra lógica
@@ -46,13 +46,14 @@ async function getPerfilCompleto(id) {
   return perfil;
 }
 
+
+
 module.exports = {
   createUser,
-  getAllUsers: listAllUsers,
-  getUserById,
+  getAll: listAllUsers,      // <- renomeado
+  getById: getUserById,      // <- renomeado
   updateUser,
   updateUserPassword: updateSenha,
   deleteUser,
   getPerfil: getPerfilCompleto,
 };
-
