@@ -15,9 +15,12 @@ router.get('/:id', reservaController.getById);
 router.put('/:id', reservaController.update);
 
 // Deletar uma reserva
-router.delete('/:id', reservaController.remove);
+router.delete('/:id', reservaController.delete);
 
-// Buscar reservas por status
-router.get('/status/:status', reservaController.getByStatus);
+// Buscar reservas por usuário
+router.get('/usuario/:id_user', reservaController.getByUsuario);
+
+// Buscar reservas por sala
+router.get('/sala/:id_sala', reservaController.getBySala);
 
 module.exports = router;

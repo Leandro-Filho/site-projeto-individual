@@ -1,14 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const userController = require('../controllers/userController');
+const usuarioController = require('../controllers/usuarioController');
 
-router.get('/', userController.showCreateForm);   // Tela formulário criação usuário
-router.post('/', userController.createUser);             // Criar usuário (API ou formulário)
-router.get('/list', userController.getAllUsers);
-router.get('/user/:id', userController.getUserById);
-router.put('/:id', userController.updateUser);           // Atualizar usuário
-router.patch('/:id/password', userController.updateUserPassword); // Atualizar senha
-router.delete('/:id', userController.deleteUser);        // Deletar usuário
-router.get('/:id/perfil', userController.getPerfil);     // Perfil completo
+// Rotas para usuários
+router.post('/', usuarioController.create);                    // Criar usuário
+router.get('/', usuarioController.getAll);                     // Listar todos os usuários
+router.get('/:id', usuarioController.getById);                 // Buscar usuário por ID
+router.put('/:id', usuarioController.update);                  // Atualizar usuário
+router.patch('/:id/password', usuarioController.updatePassword); // Atualizar senha
+router.delete('/:id', usuarioController.delete);               // Deletar usuário
+router.get('/:id/perfil', usuarioController.getPerfil);        // Perfil completo
 
 module.exports = router;

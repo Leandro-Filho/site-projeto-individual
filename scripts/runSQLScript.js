@@ -1,31 +1,43 @@
-const fs = require('fs');
-const path = require('path');
-const { Pool } = require('pg');
-require('dotenv').config();
+import fs from 'fs';
+import pg from 'pg';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+const { Pool } = pg;
+
+const connectionString = `postgresql://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`;
 
 const pool = new Pool({
-  user: process.env.DB_USER,
-  host: process.env.DB_HOST,
-  database: process.env.DB_DATABASE,
-  password: process.env.DB_PASSWORD,
-  port: process.env.DB_PORT,
+  connectionString,
   ssl: {
     rejectUnauthorized: false,
   },
 });
 
-const runSQLScript = async () => {
-  const filePath = path.join(__dirname, 'init.sql');
-  const sql = fs.readFileSync(filePath, 'utf8');
-
+async function runSQLScript(filePath) {
+  const client = await pool.connect();
   try {
-    await pool.query(sql);
-    console.log('Script SQL executado com sucesso!');
-  } catch (err) {
-    console.error('Erro ao executar o script SQL:', err);
+    const sql = fs.readFileSync(filePath, 'utf-8');
+    const commands = sql
+      .split(';')
+      .map(cmd => cmd.trim())
+      .filter(cmd => cmd.length > 0);
+
+    for (const command of commands) {
+      if (command.startsWith('--') || command.startsWith('/*')) continue;
+      console.log('Executando:', command.slice(0, 50).replace(/\n/g, ' ') + '...');
+      await client.query(command);
+    }
+    console.log('✅ Script executado com sucesso!');
+  } catch (error) {
+    console.error('❌ Erro ao executar script:', error);
   } finally {
+    client.release();
     await pool.end();
   }
-};
+}
 
-runSQLScript();
+const pathSQL = './scripts/init.sql';
+runSQLScript(pathSQL);
+
