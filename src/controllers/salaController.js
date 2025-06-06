@@ -1,5 +1,5 @@
 const Sala = require('../models/salaModel');
-const UsuarioSala = require('../models/UsuarioSala');
+const UsuarioSala = require('../models/usuarioSala');
 
 const salaController = {
   // Criar uma nova sala
@@ -140,7 +140,24 @@ const salaController = {
     } catch (error) {
       res.status(500).json({ erro: error.message });
     }
+  },
+
+  async viewSalas(req, res) {
+  try {
+    const { local, horario_inicio, horario_fim } = req.query;
+
+    const filtro = {};
+    if (local) filtro.local = local;
+    if (horario_inicio) filtro.horario_inicio = horario_inicio;
+    if (horario_fim) filtro.horario_fim = horario_fim;
+
+    const salas = await salaService.getByFilter(filtro);
+    res.render('sala', { salas }); // renderiza a view 'views/salas.ejs'
+  } catch (error) {
+    res.status(500).send('Erro ao buscar salas');
   }
+}
+
 };
 
 module.exports = salaController;

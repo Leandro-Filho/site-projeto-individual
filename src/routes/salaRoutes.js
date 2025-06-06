@@ -10,6 +10,8 @@ router.get('/disponibilidade', salaController.verificarDisponibilidade); // Veri
 router.get('/:id', salaController.getById);                   // Buscar sala por ID
 router.put('/:id', salaController.update);                    // Atualizar sala
 router.delete('/:id', salaController.delete);                 // Deletar sala
+router.get('/visualizar', salaController.viewSalas);
+
 
 // Rotas para associação usuário-sala
 router.post('/associar', salaController.associarUsuario);     // Associar usuário a sala

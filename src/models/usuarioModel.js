@@ -25,8 +25,10 @@ class Usuario {
       usuario.numero_celular || null
     ];
     
+
     const result = await pool.query(query, values);
     return result.rows[0];
+
   }
 
   // Buscar todos os usuários

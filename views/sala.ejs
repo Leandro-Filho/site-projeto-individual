@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Salas Disponíveis</title>
+</head>
+<body>
+  <h1>Filtrar Salas</h1>
+  <form method="get" action="/salas/visualizar">
+    <input type="text" name="local" placeholder="Local">
+    <input type="time" name="horario_inicio">
+    <input type="time" name="horario_fim">
+    <button type="submit">Buscar</button>
+  </form>
+
+  <h2>Salas Encontradas</h2>
+  <ul>
+    <% salas.forEach(sala => { %>
+      <li><strong><%= sala.nome %></strong> - <%= sala.local %> - <%= sala.horario_inicio %> até <%= sala.horario_fim %></li>
+    <% }) %>
+  </ul>
+</body>
+</html>

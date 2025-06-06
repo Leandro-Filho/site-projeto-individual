@@ -1,17 +1,19 @@
-const Usuario = require('../models/Usuario');
-const UsuarioSala = require('../models/UsuarioSala');
+const Usuario = require('../models/usuarioModel');
+const UsuarioSala = require('../models/usuarioSala');
 const UsuarioNotificacao = require('../models/UsuarioNotificacao');
 
 const usuarioController = {
   // Criar um novo usuário
-  async create(req, res) {
-    try {
-      const novoUsuario = await Usuario.create(req.body);
-      res.status(201).json(novoUsuario);
-    } catch (error) {
-      res.status(400).json({ erro: error.message });
-    }
-  },
+ async create(req, res) {
+  try {
+    const novoUsuario = await Usuario.create(req.body);
+    // Redireciona para a rota que renderiza as salas
+    res.redirect('/salas/visualizar');
+  } catch (error) {
+    // Pode manter o json para erros
+    res.status(400).json({ erro: error.message });
+  }
+},
 
   // Buscar todos os usuários
   async getAll(req, res) {

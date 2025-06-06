@@ -15,7 +15,8 @@ router.get('/:id', notificacaoController.getById);
 router.put('/:id', notificacaoController.update);
 
 // Deletar notificação
-router.delete('/:id', notificacaoController.remove);
+router.delete('/:id', notificacaoController.delete);
+
 
 // Buscar notificações de um usuário
 router.get('/usuario/:id_user', notificacaoController.getByUsuario);
