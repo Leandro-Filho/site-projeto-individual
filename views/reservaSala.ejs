@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Reservar Sala - <%= sala.local %></title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f7f7;
+      margin: 0;
+      padding: 2rem;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: #333;
+    }
+    label {
+      display: block;
+      margin: 1rem 0 0.5rem;
+      font-weight: bold;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+    button {
+      margin-top: 1.5rem;
+      padding: 10px 20px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+      width: 100%;
+    }
+    button:hover {
+      background-color: #218838;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Reservar Sala: <%= sala.local %></h1>
+    <p><strong>Descrição:</strong> <%= sala.descricao || '-' %></p>
+    <p><strong>Capacidade:</strong> <%= sala.capacidade %></p>
+
+    <form action="/reservas" method="POST">
+      <input type="hidden" name="id_sala" value="<%= sala.id %>">
+      
+      <label for="data_reserva">Data da Reserva:</label>
+      <input type="date" id="data_reserva" name="data_reserva" required>
+      
+      <label for="hora_inicio">Horário Início:</label>
+      <input type="time" id="hora_inicio" name="hora_inicio" required>
+      
+      <label for="hora_fim">Horário Fim:</label>
+      <input type="time" id="hora_fim" name="hora_fim" required>
+      
+      <label for="descricao">Observações (opcional):</label>
+      <textarea id="descricao" name="descricao" rows="3" placeholder="Detalhes adicionais..."></textarea>
+      
+      <button type="submit">Confirmar Reserva</button>
+    </form>
+  </div>
+</body>
+</html>

@@ -26,21 +26,19 @@ const reservaRoutes = require('./src/routes/reservaRoutes');
 const salaRoutes = require('./src/routes/salaRoutes');
 const notificacaoRoutes = require('./src/routes/notificacaoRoutes');
 
-
-// Usa as rotas (prefixe se quiser, ex: /api/use
 app.use('/usuarios', userRoutes);
 app.use('/reservas', reservaRoutes);
-app.use('/sala', salaRoutes);
+app.use('/salas', salaRoutes);
 app.use('/notificacoes', notificacaoRoutes);
 
 // Rota inicial
 app.get('/', (req, res) => {
-  res.render('index'); // Certifique-se de ter views/index.ejs
+  res.render('index'); 
 });
 
-// Middleware para rota não encontrada
+
 app.use((req, res, next) => {
-  res.status(404).render('404'); // Crie views/404.ejs se quiser
+  res.status(404).render('404'); 
 });
 
 // Inicia o servidor

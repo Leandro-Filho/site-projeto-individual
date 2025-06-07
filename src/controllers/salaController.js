@@ -151,12 +151,37 @@ const salaController = {
     if (horario_inicio) filtro.horario_inicio = horario_inicio;
     if (horario_fim) filtro.horario_fim = horario_fim;
 
-    const salas = await salaService.getByFilter(filtro);
+    const salas = await Sala.findByFilter(filtro);
     res.render('sala', { salas }); // renderiza a view 'views/salas.ejs'
   } catch (error) {
     res.status(500).send('Erro ao buscar salas');
   }
-}
+},
+
+async showForm(req, res) {
+  try {
+    res.render('form'); // form.ejs
+  } catch (error) {
+    res.status(500).send('Erro ao exibir o formulário');
+  }
+},
+
+  async showReservaForm(req, res) {
+    try {
+      const { id } = req.params;
+      const sala = await Sala.findById(id); // método que busca sala pelo ID no banco
+
+      if (!sala) {
+        return res.status(404).send('Sala não encontrada');
+      }
+
+      // Renderiza a view de reserva, enviando os dados da sala
+      res.render('reservaForm', { sala });
+    } catch (error) {
+      console.error(error);
+      res.status(500).send('Erro ao carregar formulário de reserva');
+    }
+  },
 
 };
 

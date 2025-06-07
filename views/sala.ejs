@@ -1,22 +1,193 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
+  <meta charset="UTF-8" />
   <title>Salas Disponíveis</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f7f7;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Header */
+    header {
+      background-color: #ffffff;
+      color: white;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .header-left,
+    .header-center,
+    .header-right {
+      flex: 1;
+    }
+
+    .header-center {
+      text-align: center;
+    }
+
+    .header-right {
+      text-align: right;
+    }
+
+    .header a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .header a:hover {
+      text-decoration: underline;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 30px auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: #333;
+    }
+
+    form {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    input[type="text"],
+    input[type="time"] {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      flex: 1 1 200px;
+      max-width: 250px;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #ffffff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      flex: 0 0 auto;
+    }
+
+    button:hover {
+      background-color: #ffffff;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+
+    th, td {
+      padding: 12px 15px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #28a745;
+      color: white;
+    }
+
+    tr:hover {
+      background-color: #f1f1f1;
+    }
+
+    .no-salas {
+      text-align: center;
+      color: #888;
+      margin-top: 2rem;
+    }
+  </style>
 </head>
 <body>
-  <h1>Filtrar Salas</h1>
-  <form method="get" action="/salas/visualizar">
-    <input type="text" name="local" placeholder="Local">
-    <input type="time" name="horario_inicio">
-    <input type="time" name="horario_fim">
-    <button type="submit">Buscar</button>
-  </form>
 
-  <h2>Salas Encontradas</h2>
-  <ul>
-    <% salas.forEach(sala => { %>
-      <li><strong><%= sala.nome %></strong> - <%= sala.local %> - <%= sala.horario_inicio %> até <%= sala.horario_fim %></li>
-    <% }) %>
-  </ul>
+  <!-- HEADER -->
+  <header>
+    <div class="header-left">
+      <a href="/salas/cadastrar">+ Cadastrar Sala</a>
+    </div>
+    <div class="header-center">
+      <a href="/duvidas">❓ Dúvidas</a>
+    </div>
+    <div class="header-right">
+      <a href="/notificacoes">🔔 Notificações</a>
+    </div>
+  </header>
+
+  <!-- CONTEÚDO PRINCIPAL -->
+  <div class="container">
+    <h1>Salas Disponíveis</h1>
+
+    <form method="GET" action="/salas/visualizar">
+      <input
+        type="text"
+        name="local"
+        placeholder="Local"
+        value="<%= typeof local !== 'undefined' ? local : '' %>"
+      />
+      <input
+        type="time"
+        name="horario_inicio"
+        placeholder="Horário Início"
+        value="<%= typeof horario_inicio !== 'undefined' ? horario_inicio : '' %>"
+      />
+      <input
+        type="time"
+        name="horario_fim"
+        placeholder="Horário Fim"
+        value="<%= typeof horario_fim !== 'undefined' ? horario_fim : '' %>"
+      />
+      <button type="submit">Filtrar</button>
+    </form>
+
+    <% if (salas && salas.length > 0) { %>
+      <table>
+        <thead>
+          <tr>
+            <th>Local</th>
+            <th>Descrição</th>
+            <th>Capacidade</th>
+          </tr>
+        </thead>
+            <tbody>
+        <% salas.forEach(function(sala) { %>
+            <tr>
+            <td><a href="/salas/<%= sala.id %>/reservar"><%= sala.local %></a></td>
+            <td><%= sala.descricao || '-' %></td>
+            <td><%= sala.capacidade %></td>
+            </tr>
+        <% }) %>
+        </tbody>
+
+      </table>
+    <% } else { %>
+      <p class="no-salas">Nenhuma sala encontrada com os filtros aplicados.</p>
+    <% } %>
+  </div>
+
 </body>
 </html>
+

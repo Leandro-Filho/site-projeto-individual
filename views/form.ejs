@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cadastrar Sala</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f7f7;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Header */
+    header {
+      background-color: #fdfffe;
+      color: white;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .header-left,
+    .header-center,
+    .header-right {
+      flex: 1;
+    }
+
+    .header-center {
+      text-align: center;
+    }
+
+    .header-right {
+      text-align: right;
+    }
+
+    .header a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .header a:hover {
+      text-decoration: underline;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: 50px auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: #333;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    input, textarea {
+      padding: 10px;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      padding: 10px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #218838;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-left">
+      <a href="/salas/visualizar">← Filtrar Salas</a>
+    </div>
+    <div class="header-center">
+      <a href="/duvidas">❓ Dúvidas</a>
+    </div>
+    <div class="header-right">
+      <a href="/notificacoes">🔔 Notificações</a>
+    </div>
+  </header>
+
+  <!-- FORMULÁRIO DE CADASTRO -->
+  <div class="container">
+    <h2>Cadastrar Nova Sala</h2>
+    <form action="/salas" method="POST">
+      <input type="text" name="local" placeholder="Local da Sala" required />
+      <textarea name="descricao" placeholder="Descrição (opcional)" rows="3"></textarea>
+      <input type="number" name="capacidade" placeholder="Capacidade" min="1" required />
+      <button type="submit">Salvar Sala</button>
+    </form>
+  </div>
+
+</body>
+</html>

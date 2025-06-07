@@ -97,6 +97,27 @@ class Sala {
     const result = await pool.query(query, [salaId, data, horarioInicio, horarioFinal]);
     return parseInt(result.rows[0].conflitos) === 0;
   }
+
+  static async findByFilter(filtro) {
+  let query = 'SELECT * FROM sala';
+  const conditions = [];
+  const values = [];
+
+  if (filtro.local) {
+    values.push(`%${filtro.local}%`);
+    conditions.push(`local ILIKE $${values.length}`);
+  }
+
+  if (conditions.length > 0) {
+    query += ' WHERE ' + conditions.join(' AND ');
+  }
+
+  query += ' ORDER BY local';
+
+  const result = await pool.query(query, values);
+  return result.rows;
+}
+
 }
 
 module.exports = Sala;
