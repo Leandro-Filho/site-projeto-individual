@@ -53,40 +53,40 @@ Primeiro será explicado cada entidade e depois a relação entre elas para fica
 <p align="center"> <img src="../assets/assetsWAD/tabela_usuario.png">
 <br> <sub>Fonte: Autoral (2025)</sub> </p>
 
-&emsp;&emsp; Essa tabela é referente as informações que serão guardadas quando o futuro usuário do nosso site se cadastrar em nosso site. Os atributos possíveis de ser vistos são: **ID**(número de identificação gerado automaticamente após o cadastro), **Email**, **Senha**, **Empresa/escola** e **Número de celular** são informações colocadas pelo usuários na hora do cadastro. Função de Número de celular, Email e Empresa/escola são mais para um cadastro completo e lugares de contato ou futuro envio de notificações. Já a senha é para segurança de nosso cliente. Outros dois atributos importantes são: **created_at** e o **update_at**. São responsáveis por fixar informações na hora de sua criação, como data e horário e para atualizar as informações iniciais após uma mudança nas informações do usuário, respectivamente.
+&emsp;&emsp; Essa tabela é referente as informações que serão guardadas quando o futuro usuário do nosso site se cadastrar em nosso site. Os atributos possíveis de ser vistos são: **ID**(número de identificação gerado automaticamente após o cadastro), **Email**, **Senha**, **Empresa/escola** e **Número de celular** são informações colocadas pelo usuários na hora do cadastro. Função de Número de celular, Email e Empresa/escola são mais para um cadastro completo e lugares de contato ou futuro envio de notificações. Já a senha é para segurança de nosso cliente. Outros dois atributos importantes são: **created_at** e o **update_at**. São responsáveis por fixar informações na hora de sua criação, como data e horário e para atualizar as informações iniciais após uma mudança nas informações do usuário, respectivamente. Além de existir a regra de negócios que  terá como função verificar, consultar e interagir com o banco de dados.
 
 <p align="center">Tabela Intermediária de Usuários-Notificação. </p>
 
 <p align="center"> <img src="../assets/assetsWAD/tabela_usuario-notificacao.png">
 <br> <sub>Fonte: Autoral (2025)</sub> </p>
 
-&emsp;&emsp; Por haver uma relação de N:N entre as tabelas Usuários e Notificação, é necessário, tanto para uma melhor busca nos dados quanto para bons modos do SQL, criar uma tabela intermediária que tem apenas 3 atributos: **ID** próprio, **ID_usuario** e **ID_notificacao**, esses dois responsáveis por apenas fazerem o relacionamento entre eles e essa tabela. Para a pesquisa, apenas necessário colocar o ID da notificação e do usuário para filtrar todas. Muito mais prático e fácil.
+&emsp;&emsp; Por haver uma relação de N:N entre as tabelas Usuários e Notificação, é necessário, tanto para uma melhor busca nos dados quanto para bons modos do SQL, criar uma tabela intermediária que tem apenas 3 atributos: **ID** próprio, **ID_usuario** e **ID_notificacao**, esses dois responsáveis por apenas fazerem o relacionamento entre eles e essa tabela. Para a pesquisa, apenas necessário colocar o ID da notificação e do usuário para filtrar todas. Muito mais prático e fácil. Além de existir a regra de negócios que  terá como função verificar, consultar e interagir com o banco de dados.
 
 <p align="center">Tabela Intermediária de Usuários-Salas. </p>
 
 <p align="center"> <img src="../assets/assetsWAD/tabela_usuario-salas.png">
 <br> <sub>Fonte: Autoral (2025)</sub> </p>
 
-&emsp;&emsp; Por haver uma relação de N:N entre as tabelas Usuários e Salas, é necessário, tanto para uma melhor busca nos dados quanto para bons modos do SQL, criar uma tabela intermediária que tem apenas 3 atributos: **ID** próprio, **ID_usuario** e **ID_salas**, esses dois responsáveis por apenas fazerem o relacionamento entre eles e essa tabela. Para a pesquisa, apenas necessário colocar o ID da notificação e do usuário para filtrar todas. Muito mais prático e fácil.
+&emsp;&emsp; Por haver uma relação de N:N entre as tabelas Usuários e Salas, é necessário, tanto para uma melhor busca nos dados quanto para bons modos do SQL, criar uma tabela intermediária que tem apenas 3 atributos: **ID** próprio, **ID_usuario** e **ID_salas**, esses dois responsáveis por apenas fazerem o relacionamento entre eles e essa tabela. Para a pesquisa, apenas necessário colocar o ID da notificação e do usuário para filtrar todas. Muito mais prático e fácil. Além de existir a regra de negócios que  terá como função verificar, consultar e interagir com o banco de dados.
 
 <p align="center">Tabela de Notificações. </p>
 
 <p align="center"> <img src="../assets/assetsWAD/tabela_notificacao.png">
 <br> <sub>Fonte: Autoral (2025)</sub> </p>
 
-&emsp;&emsp; Essa tabela se diferencia um pouco das demais porque ela será apenas textos. Seus atributos são: **ID**(número de identificação gerado automaticamente após o envio da notificação), **Título**, como o nome já é auto-explicativo, ela será o título da notificação, **Mensagem**, ela será a descrição e o texto explicando o que será ou para que será a notificação. Outros dois atributos importantes são: **created_at** e o **update_at**. São responsáveis por fixar informações na hora de sua criação, como data e horário e para atualizar as informações iniciais após uma mudança nas informações do usuário, respectivamente.
+&emsp;&emsp; Essa tabela se diferencia um pouco das demais porque ela será apenas textos. Seus atributos são: **ID**(número de identificação gerado automaticamente após o envio da notificação), **Título**, como o nome já é auto-explicativo, ela será o título da notificação, **Mensagem**, ela será a descrição e o texto explicando o que será ou para que será a notificação. Outros dois atributos importantes são: **created_at** e o **update_at**. São responsáveis por fixar informações na hora de sua criação, como data e horário e para atualizar as informações iniciais após uma mudança nas informações do usuário, respectivamente. Além de existir a regra de negócios que  terá como função verificar, consultar e interagir com o banco de dados.
 
 <p align="center">Tabela de Salas. </p>
 <p align="center"> <img src="../assets/assetsWAD/tabela_salas.png">
 <br> <sub>Fonte: Autoral (2025)</sub> </p>
-&emsp;&emsp; Essa tabela é gerada após o cadastro de alguma sala para aluguel, tendo como atributos: **ID** (número de identificação gerado automaticamente após o cadastro das slas no site), **Local**, importantíssimo para que possamos filtrar as salas por locais e só entregar o que o cliente espera, **Descrição**, ela será a descrição sobre a sala apenas, **Capacidade**, também para servir de filtragem, mostrará a quantidade máxima que a sala comporta. Outros dois atributos importantes são: **created_at** e o **update_at**. São responsáveis por fixar informações na hora de sua criação, como data e horário e para atualizar as informações iniciais após uma mudança nas informações do usuário, respectivamente.
+&emsp;&emsp; Essa tabela é gerada após o cadastro de alguma sala para aluguel, tendo como atributos: **ID** (número de identificação gerado automaticamente após o cadastro das slas no site), **Local**, importantíssimo para que possamos filtrar as salas por locais e só entregar o que o cliente espera, **Descrição**, ela será a descrição sobre a sala apenas, **Capacidade**, também para servir de filtragem, mostrará a quantidade máxima que a sala comporta. Outros dois atributos importantes são: **created_at** e o **update_at**. São responsáveis por fixar informações na hora de sua criação, como data e horário e para atualizar as informações iniciais após uma mudança nas informações do usuário, respectivamente. Além de existir a regra de negócios que  terá como função verificar, consultar e interagir com o banco de dados.
 
 
 <p align="center">Tabela de Reservas. </p>
 <p align="center"> <img src="../assets/assetsWAD/tabela_reserva.png">
 <br> <sub>Fonte: Autoral (2025)</sub> </p>
 
-&emsp;&emsp; Essa tabela é a mais complexa, já que existe mais de uma relação entre entidades e com o maior número de entidades. Seus atributos são: **ID** (número de identificação gerado automaticamente após a reserva ser solicitada), **ID_usuario**, será muito importante para que seja guardada a informação de cada solicitação e linkada ao usuário que tentou faze-la, **id_salas**, esse ID é responsável por fazer o relacionamento de dependencia da entidade sala para que a entidade reservas seja criada, **Título**, é o título da reserva, **Data, status,  horario_inicio e  horario_final** terão a mesma função de filtragem, vou explicar. Data será responsável por retirar todas as salas que não tem nesta data, Status é referente se a sala já foi alugada e horario inicio e  horario final será responsável por puxar apenas as salas que os horários entre o começo e o final do aluguel solicitado sejam mostrados. Outros dois atributos importantes são: **created_at** e o **update_at**. São responsáveis por fixar informações na hora de sua criação, como data e horário e para atualizar as informações iniciais após uma mudança nas informações do usuário, respectivamente.
+&emsp;&emsp; Essa tabela é a mais complexa, já que existe mais de uma relação entre entidades e com o maior número de entidades. Seus atributos são: **ID** (número de identificação gerado automaticamente após a reserva ser solicitada), **ID_usuario**, será muito importante para que seja guardada a informação de cada solicitação e linkada ao usuário que tentou faze-la, **id_salas**, esse ID é responsável por fazer o relacionamento de dependencia da entidade sala para que a entidade reservas seja criada, **Título**, é o título da reserva, **Data, status,  horario_inicio e  horario_final** terão a mesma função de filtragem, vou explicar. Data será responsável por retirar todas as salas que não tem nesta data, Status é referente se a sala já foi alugada e horario inicio e  horario final será responsável por puxar apenas as salas que os horários entre o começo e o final do aluguel solicitado sejam mostrados. Outros dois atributos importantes são: **created_at** e o **update_at**. São responsáveis por fixar informações na hora de sua criação, como data e horário e para atualizar as informações iniciais após uma mudança nas informações do usuário, respectivamente.Além de existir a regra de negócios que  terá como função verificar, consultar e interagir com o banco de dados.
  
 <p align="center">Diagrama ER Inteiro. </p>
 <p align="center"> <img src="../assets/assetsWAD/DER_inteiro_WAD.png">
@@ -116,46 +116,14 @@ Primeiro será explicado cada entidade e depois a relação entre elas para fica
 
 ## Modelo Físico da MER.
 
-&emsp;&emsp;&emsp;&emsp; Aqui será explicado o código colocado no arquivo .sql para criar as tabelas no banco de dados.
-
-<p align="center">Código da Lógica de Criar ID Aleatórios. </p>
-<p align="center"> <img src="../assets/assetsWAD/código_ID.png">
-<br> <sub>Fonte: Autoral (2025)</sub> </p>
-
-### Explicação:
-
-CREATE EXTENSION: Instala a extensão "uuid-ossp" no PostgreSQL, que adiciona funções para gerar UUIDs (identificadores únicos).
-
-IF NOT EXISTS: Evita erros ao executar o comando caso a extensão já esteja instalada.
-"uuid-ossp": Nome da extensão que fornece funções como uuid_generate_v4() para criar UUIDs aleatórios.
-
-Propósito:
-Ativa a extensão "uuid-ossp" para gerar UUIDs, úteis como chaves primárias (ex.: "id" em "usuario", "sala", "reserva"), garantindo unicidade global.
-
-<p align="center">Código Automatizador. </p>
-<p align="center"> <img src="../assets/assetsWAD/código_otimizacao.png">
-<br> <sub>Fonte: Autoral (2025)</sub> </p>
-
-### Explicação:
-
-CREATE INDEX: Cria índices em colunas específicas para acelerar buscas, junções e ordenações. Cada índice é nomeado (ex.: idx_usuario_salas_usuario_id) e associado a uma coluna (ex.: id_usuario) em uma tabela (ex.: usuario_salas).
-
-Exemplo Representativo: O índice idx_reservas_usuario_id ON reservas(id_usuario) acelera consultas que filtram reservas por usuário, como buscar todas as reservas feitas por um "id_usuario" específico. Esse padrão se aplica aos demais índices, que otimizam buscas por "id_usuario" ou "id_salas" em "usuario_salas", "reservas" e "usuario_notificacao", ou por "id_notificacao" em "usuario_notificacao".
-
-Propósito:
-Os índices melhoram a eficiência de consultas no sistema de reservas de salas, acelerando buscas e filtros por "id_usuario", "id_salas" e "id_notificacao" nas tabelas "usuario_salas", "reservas" e "usuario_notificacao", especialmente em cenários de alto volume de dados.
-
-<p align="center">Código da Criação da Tabela Usuários. </p>
-<p align="center"> <img src="../assets/assetsWAD/código_tabela_usuario.png">
-<br> <sub>Fonte: Autoral (2025)</sub> </p>
-
+<h3 align="center">Código da Criação da Tabela Usuários. </h3>
 
 Descrição:
 Armazena as informações dos usuários cadastrados no sistema, como dados de login, contato e afiliação institucional.
 
 Campos:
 
-id: Identificador único do usuário (UUID gerado automaticamente).
+id: Identificador único do usuário.
 
 email: Endereço de e-mail do usuário. É obrigatório e único, servindo como login principal.
 
@@ -175,17 +143,14 @@ O campo email possui a restrição UNIQUE para impedir duplicidade de contas.
 
 Timestamps automáticos garantem o rastreamento de criação e atualização dos dados.
 
-<p align="center">Código da Criação da Tabela Usuários-Salas. </p>
-<p align="center"> <img src="../assets/assetsWAD/código_tabela_usuario-salas.png">
-<br> <sub>Fonte: Autoral (2025)</sub> </p>
-
+<h3 align="center">Código da Criação da Tabela Usuários-Salas. </h3>
 
 Descrição:
 Tabela de junção que representa a relação N:N entre usuários e salas, ou seja, quais usuários estão associados a quais salas.
 
 Campos:
 
-id: Identificador único da associação (UUID gerado automaticamente).
+id: Identificador único da associação.
 
 id_usuario: Referência ao id do usuário. A exclusão em cascata remove o relacionamento caso o usuário seja deletado.
 
@@ -200,9 +165,7 @@ Esta tabela funciona como uma ponte entre usuario e salas, viabilizando o relaci
 As cláusulas ON DELETE CASCADE mantêm o banco de dados limpo ao excluir automaticamente vínculos inválidos.
 
 
-<p align="center">Código da Criação da Tabela Usuários-Notificações. </p>
-<p align="center"> <img src="../assets/assetsWAD/código_tabela_usuario-notificacao.png">
-<br> <sub>Fonte: Autoral (2025)</sub> </p>
+<h3 align="center">Código da Criação da Tabela Usuários-Notificações. </h3>
 
 
 Descrição:
@@ -210,7 +173,7 @@ Registra a relação N:N entre usuários e notificações, representando quais n
 
 Campos:
 
-id: Identificador único (UUID gerado automaticamente).
+id: Identificador único.
 
 id_usuario: Referência ao usuário que recebeu a notificação. Caso o usuário seja deletado, a notificação associada também será removida (ON DELETE CASCADE).
 
@@ -227,9 +190,7 @@ UNIQUE(id_usuario, id_notificacao): Garante que cada usuário receba uma notific
 As chaves estrangeiras e exclusões em cascata ajudam a manter o banco limpo e consistente, mesmo com remoções de usuários ou notificações.
 
 
-<p align="center">Código da Criação da Tabela Notificação. </p>
-<p align="center"> <img src="../assets/assetsWAD/código_tabela_notificacao.png">
-<br> <sub>Fonte: Autoral (2025)</sub> </p>
+<h3 align="center">Código da Criação da Tabela Notificação. </h3>
 
 
 Descrição:
@@ -253,10 +214,7 @@ Esta tabela centraliza as mensagens que serão posteriormente associadas aos usu
 
 Pode ser usada para exibir alertas, lembretes ou confirmações personalizadas no sistema.
 
-<p align="center">Código da Criação da Tabela Salas. </p>
-<p align="center"> <img src="../assets/assetsWAD/código_tabela_salas.png">
-<br> <sub>Fonte: Autoral (2025)</sub> </p>
-
+<h3 align="center">Código da Criação da Tabela Salas. </h3>
 
 Descrição:
 Armazena os dados das salas disponíveis para reserva no sistema.
@@ -283,10 +241,7 @@ Vinculada a usuários e reservas por meio das tabelas usuario_salas e reservas.
 
 Garante controle de capacidade mínima com a restrição CHECK(capacidade > 0).
 
-<p align="center">Código da Criação da Tabela Reservas. </p>
-<p align="center"> <img src="../assets/assetsWAD/código_tabela_reservas.png">
-<br> <sub>Fonte: Autoral (2025)</sub> </p>
-
+<h3 align="center">Código da Criação da Tabela Reservas. </h3>
 
 Descrição:
 Registra as reservas feitas por usuários para salas específicas no sistema.
@@ -330,39 +285,31 @@ Garante integridade temporal e referencial entre usuários e salas.
 ### 3.1.1 BD e Models (Semana 5)
 Por questões de organização e estudos para entender melhor cada código e suas funções, decidi separar o model e deixa-lo mais simples, criando o Repository com as consultas do banco de dados e o Model apenas fazendo a descrição de cada entidade, definindo os valores de cada atributo, seus tipos e algumas validações, usando a biblioteca Joi para isso.
 
-<p align="center">Código da userModel. </p>
-<p align="center"> <img src="../assets/assetsWAD/userModel_WAD.png">
-<br> <sub>Fonte: Autoral (2025)</sub> </p>
+<h3 align="center">Código da userModel. </h3>
 
 O model usuário é responsável por validar os dados dos usuários cadastrados no sistema. Ele garante que o nome tenha no mínimo 2 caracteres, que o email seja válido, e que a senha possua pelo menos uma letra e um número, com no mínimo 6 caracteres. O campo empresa_escola é obrigatório e deve ser uma string. Já o campo celular deve conter exatamente 11 dígitos numéricos, sendo validado tanto por tamanho quanto por padrão. O campo id é opcional e gerado automaticamente pelo banco de dados.
 
-<p align="center">Código da reservasModel. </p>
-<p align="center"> <img src="../assets/assetsWAD/reservasModel_WAD.png">
-<br> <sub>Fonte: Autoral (2025)</sub> </p>
+<h3 align="center">Código da reservasModel. </h3>
+
 
 O model reserva é responsável por validar os dados relacionados às reservas feitas pelos usuários no sistema. Ele garante que id_user e id_sala sejam números inteiros e positivos, além de obrigatórios. Os campos horario_inicio e horario_final devem seguir o formato HH:mm, assegurando um horário válido. O campo status aceita apenas quatro valores específicos: pendente, confirmada, cancelada ou rejeitada. Por fim, o campo titulo é obrigatório e deve ser uma string.
 
-<p align="center">Código da notificacaoModel. </p>
-<p align="center"> <img src="../assets/assetsWAD/notificacaoModel_WAD.png">
-<br> <sub>Fonte: Autoral (2025)</sub> </p>
+<h3 align="center">Código da notificacaoModel. </h3>
 
 O model notificação define e valida a estrutura dos dados de uma notificação no sistema, assegurando que todas as notificações criadas tenham um título e uma mensagem, ambos obrigatoriamente do tipo texto. O campo id é opcional e deve ser um número inteiro positivo, geralmente gerado automaticamente pelo banco de dados. 
 
-<p align="center">Código da salaModel. </p>
-<p align="center"> <img src="../assets/assetsWAD/salaModel_WAD.png">
-<br> <sub>Fonte: Autoral (2025)</sub> </p>
+<h3 align="center">Código da salaModel. </h3>
+
 
 O model sala tem a função de validar os dados relacionados às salas disponíveis no sistema. Ele garante que o campo local seja uma string contendo apenas letras, enquanto o campo capacidade deve ser um número inteiro e positivo. O campo id é opcional e geralmente é gerado automaticamente pelo banco de dados. Esse model também utiliza mensagens de erro personalizadas, facilitando o entendimento dos erros pelo usuário quando os dados não seguem o formato esperado.
 
-<p align="center">Código da usernotificacaoModel. </p>
-<p align="center"> <img src="../assets/assetsWAD/usernotificacaoModel_WAD.png">
-<br> <sub>Fonte: Autoral (2025)</sub> </p>
+<h3 align="center">Código da usernotificacaoModel. </h3>
+
 
 O model user_notificacao valida os dados da associação entre usuários e notificações. Ele exige que os campos id_user e id_notificacao sejam números inteiros, positivos e obrigatórios. O campo visualizado é um valor booleano que indica se a notificação foi vista, assumindo false como valor padrão.
 
-<p align="center">Código da usersalaModel. </p>
-<p align="center"> <img src="../assets/assetsWAD/usersalaModel_WAD.png">
-<br> <sub>Fonte: Autoral (2025)</sub> </p>
+<h3 align="center">Código da usersalaModel. </h3>
+
 
 O model user_sala é responsável por validar os dados da relação entre usuários e salas no sistema, garantindo que apenas informações corretas sejam processadas. Criado com a biblioteca Joi, ele assegura que os campos id_user e id_sala sejam obrigatoriamente números inteiros e positivos, representando os IDs de um usuário e de uma sala válidos. O campo id é opcional, já que geralmente é gerado automaticamente pelo banco de dados.
 
@@ -395,9 +342,80 @@ https://docs.google.com/document/d/1qXP6Ura9gz3WSuewzRaSLd4iKVlDks3lSRcuIeQElCI/
 
 ### 3.7 Interface e Navegação (Semana 07)
 
-*Descreva e ilustre aqui o desenvolvimento do frontend do sistema web, explicando brevemente o que foi entregue em termos de código e sistema. Utilize prints de tela para ilustrar.*
+Nesta seção será explicado o que foi desenvolvido no front end, ou seja, a parte visual do nosso site. Ainda todas as telas e funções foi implementado, mas já foi desenvolvido um grande avanço.
+<h2 align= "center">Tela</h2>
+<p align="center">Tela de Login. </p>
+<p align="center"> <img src="../assets/assetsWAD/telaLogin.png">
+<br> <sub>Fonte: Autoral (2025)</sub> </p>
 
----
+Como podemos ver, a tela de login é uma tela simples. Com cadastro para o nome, senha, email, empresa ou escola vinculado ao usuário e N° de celular. Ao clicar para cadastrar, o usuário será transportado para a tela onde poderá procurar salas cadastradas no banco de dados.
+
+<h2 align= "center">Código</h2>
+<p align="center">Códigos da Tela de Login. </p>
+<p align="center"> <img src="../assets/assetsWAD/codigotelaLogin.png">
+<br> <sub>Fonte: Autoral (2025)</sub> </p>
+<p align="center"> <img src="../assets/assetsWAD/codigotelaLogin2.png">
+<br> <sub>Fonte: Autoral (2025)</sub> </p>
+<p align="center"> <img src="../assets/assetsWAD/codigotelaLogin3.png">
+<br> <sub>Fonte: Autoral (2025)</sub> </p>
+
+Como é possível ver, o CSS foi implementado dentro do ejs para uma melhor organização das pastas e para caso ocorra um erro na interface, será mais fácil identificar o erro.
+
+O código basicamente é o CSS ( a estilização da nossa interface) a criação de caixas de textos, como nome, email, senha, com o método POST, responsável por criar o cadastrante no banco de dados.
+
+
+<h2 align= "center">Tela</h2>
+<p align="center">Tela de Filtragem de Salas. </p>
+<p align="center"> <img src="../assets/assetsWAD/telaFiltragem.png">
+<br> <sub>Fonte: Autoral (2025)</sub> </p>
+
+A tela de filtragem de salas é uma tela que permite ao usuário filtar as salas de acordo com o local, horário de início e horário de fim. Após filtrar, o usuário terá como ver as as salas que foram filtardas e reservar (código que faz realmente a reserva não foi feita ainda).
+
+<h2 align= "center">Código</h2>
+<p align="center">Códigos da Tela de Filtragem de Salas. </p>
+<p align="center"> <img src="../assets/assetsWAD/codigotelaFiltragem.png">
+<br> <sub>Fonte: Autoral (2025)</sub> </p>
+<p align="center"> <img src="../assets/assetsWAD/codigotelaFiltragem2.png">
+<br> <sub>Fonte: Autoral (2025)</sub> </p>
+<p align="center"> <img src="../assets/assetsWAD/codigotelaFiltragem3.png">
+<br> <sub>Fonte: Autoral (2025)</sub> </p>
+<p align="center"> <img src="../assets/assetsWAD/codigotelaFiltragem4.png">
+<br> <sub>Fonte: Autoral (2025)</sub> </p>
+<p align="center"> <img src="../assets/assetsWAD/codigotelaFiltragem5.png">
+<br> <sub>Fonte: Autoral (2025)</sub> </p>
+<p align="center"> <img src="../assets/assetsWAD/codigotelaFiltragem6.png">
+<br> <sub>Fonte: Autoral (2025)</sub> </p>
+<p align="center"> <img src="../assets/assetsWAD/codigotelaFiltragem7.png">
+<br> <sub>Fonte: Autoral (2025)</sub> </p>
+
+Novamente, como no código anterior, o CSS foi implementado dentro do ejs.
+
+Logo na parte de cima do site, foi colocado um header, com link para cadastro das salas, para dúvidas e notificações (apenas a de cadastro de salas está funcionando).
+
+O código é feito para criar um forms, onde o usuário pode colocar o local que deseja fazer sua reserva, o horário de check in e check out e logo abaixo terá as salas filtradas.
+
+<h2 align= "center">Tela</h2>
+<p align="center">Tela de Cadastro de Salas. </p>
+<p align="center"> <img src="../assets/assetsWAD/telaCadastro.png">
+<br> <sub>Fonte: Autoral (2025)</sub> </p>
+
+No topo superior esquerdo da tela de filtragem, é possível clicar em um link que leva para essa tela. Aqui, é possível cadastrar uma sala para que outras pessoas possam reserva-las.
+
+<h2 align= "center">Código</h2>
+<p align="center">Códigos da Tela de Cadastro de Salas. </p>
+<p align="center"> <img src="../assets/assetsWAD/codigotelaFiltargem.png">
+<br> <sub>Fonte: Autoral (2025)</sub> </p>
+<p align="center"> <img src="../assets/assetsWAD/codigotelaFiltargem2.png">
+<br> <sub>Fonte: Autoral (2025)</sub> </p>
+<p align="center"> <img src="../assets/assetsWAD/codigotelaFiltargem3.png">
+<br> <sub>Fonte: Autoral (2025)</sub> </p>
+<p align="center"> <img src="../assets/assetsWAD/codigotelaFiltargem4.png">
+<br> <sub>Fonte: Autoral (2025)</sub> </p>
+
+No mesmo esquema do código da tela de login, o CSS ficou no ejs para melhor organização e correção de erros.
+
+Já a parte mais importante, é o código do forms que, como todos as outras telas, será responsável por enviar esse cadastro ao banco dados. Para uma padronização do nosso site, o header também é implementado.
+
 
 ## <a name="c4"></a>4. Desenvolvimento da Aplicação Web (Semana 8)
 
